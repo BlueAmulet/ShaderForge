@@ -1,3 +1,9 @@
+This fork adds support for Single Pass Instanced (SPI) rendering for VR applications on shaders that use GPU Instancing.
+
+Notably, this was made in preparation for ChilloutVR's migration to Unity 2022, so that ShaderForge shaders will continue to render correctly there.
+
+Original README bellow:
+
 hey everyone~
 
 I will occasionally update this repository with fixes and features!

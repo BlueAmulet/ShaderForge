@@ -2243,8 +2243,11 @@ namespace ShaderForge {
 				} else {
 					App( "float4 pos : SV_POSITION;" ); // Already included in shadow passes
 				}
-				if( dependencies.hasPropertiesWithInstancing )
+				if( dependencies.hasPropertiesWithInstancing ) {
 					App( "UNITY_VERTEX_INPUT_INSTANCE_ID" );
+					App( "UNITY_VERTEX_OUTPUT_STEREO" );
+				}
+
 
 
 				if( ps.catLighting.IsVertexLit() )
@@ -2327,6 +2330,8 @@ namespace ShaderForge {
 			if( dependencies.hasPropertiesWithInstancing ) {
 				App( "UNITY_SETUP_INSTANCE_ID( v );" );
 				App( "UNITY_TRANSFER_INSTANCE_ID( v, o );" );
+				App( "UNITY_INITIALIZE_OUTPUT(VertexOutput, o);" );
+				App( "UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o);" );
 			}
 
 			if( dependencies.uv0_frag )
