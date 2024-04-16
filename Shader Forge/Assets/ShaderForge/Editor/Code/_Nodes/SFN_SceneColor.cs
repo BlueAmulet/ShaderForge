@@ -43,7 +43,7 @@ namespace ShaderForge {
 				return "sceneColor";
 			} else {
 				UV = GetInputCon( "UVIN" ).Evaluate();
-				return "tex2D( "+editor.ps.catBlending.GetGrabTextureName()+", " + UV + ")";
+				return "UNITY_SAMPLE_SCREENSPACE_TEXTURE( "+editor.ps.catBlending.GetGrabTextureName()+", " + UV + ")";
 			}
 		}
 

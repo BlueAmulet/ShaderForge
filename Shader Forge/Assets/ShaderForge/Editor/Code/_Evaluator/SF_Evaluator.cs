@@ -893,7 +893,7 @@ namespace ShaderForge {
 
 
 			if( dependencies.grabPass ) {
-				App( "uniform sampler2D " + ps.catBlending.GetGrabTextureName() + ";" );
+				App( "UNITY_DECLARE_SCREENSPACE_TEXTURE(" + ps.catBlending.GetGrabTextureName() + ");" );
 			}
 				
 			if( dependencies.depthTexture )
@@ -2120,7 +2120,7 @@ namespace ShaderForge {
 			if( dependencies.grabPass ) {
 
 				string s = "float4 sceneColor = ";
-				s += "tex2D(" + ps.catBlending.GetGrabTextureName() + ", sceneUVs);";
+				s += "UNITY_SAMPLE_SCREENSPACE_TEXTURE(" + ps.catBlending.GetGrabTextureName() + ", sceneUVs);";
 				App( s );
 			}
 
@@ -2171,10 +2171,10 @@ namespace ShaderForge {
 		void VertexInputStruct() {
 			App( "struct VertexInput {" );
 			scope++;
-			if (dependencies.hasPropertiesWithInstancing)
-				App("UNITY_VERTEX_INPUT_INSTANCE_ID");
 			App( "float4 vertex : POSITION;" );
 			CommonVertexData();
+			if (dependencies.hasPropertiesWithInstancing)
+				App("UNITY_VERTEX_INPUT_INSTANCE_ID");
 			scope--;
 			App( "};" );
 		}
@@ -2243,10 +2243,6 @@ namespace ShaderForge {
 				} else {
 					App( "float4 pos : SV_POSITION;" ); // Already included in shadow passes
 				}
-				if( dependencies.hasPropertiesWithInstancing ) {
-					App( "UNITY_VERTEX_INPUT_INSTANCE_ID" );
-					App( "UNITY_VERTEX_OUTPUT_STEREO" );
-				}
 
 
 
@@ -2295,6 +2291,11 @@ namespace ShaderForge {
 					App( "float4 ambientOrLightmapUV" + shlmTexCoord );
 					scope--;
 					App( "#endif" );
+				}
+
+				if( dependencies.hasPropertiesWithInstancing ) {
+					App( "UNITY_VERTEX_INPUT_INSTANCE_ID" );
+					App( "UNITY_VERTEX_OUTPUT_STEREO" );
 				}
 
 			}
